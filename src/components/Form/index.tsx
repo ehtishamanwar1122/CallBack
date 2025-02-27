@@ -7,13 +7,15 @@ type FormData = {
     password: string;
   };
 const Form: React.FC = () => {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
     const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
     const [errors, setErrors] = useState<Partial<FormData>>({});
   
     const handleChange = useCallback((name: keyof FormData, value: string) => {
       setFormData((prev) => ({ ...prev, [name]: value }));
       console.log(formData)
-    },[formData.email]);
+    },[]);
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -33,17 +35,15 @@ const Form: React.FC = () => {
           label="Email"
           name="email"
           type="email"
-          value={formData.email}
-          onChange={(e) => handleChange("email", e.target.value)}
-          error={errors.email}
+          value={email}
+          setValue={setEmail}
         />
         <Input
           label="Password"
           name="password"
           type="password"
-          value={formData.password}
-          onChange={(e) => handleChange("password", e.target.value)}
-          error={errors.password}
+          value={password}
+          setValue={setPassword}
         />
         <button type="submit"  className="w-full mt-4 p-2 cursor-pointer bg-blue-500 text-white rounded-md">Submit</button>
       </form>
